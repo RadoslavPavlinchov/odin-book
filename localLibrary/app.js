@@ -6,13 +6,14 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var newRouter = require('./routes/new');
 
 var app = express();
 
 //Set up mongoose connection
 var mongoose = require('mongoose');
 var mongoDB = 'mongodb+srv://admin:123pass123@cluster0-yq9z2.azure.mongodb.net/local_library?retryWrites=true&w=majority';
-mongoose.connect(mongoDB, { useNewUrlParser: true });
+mongoose.connect(mongoDB, { useUnifiedTopology: true, useNewUrlParser: true });
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
@@ -28,6 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/new', newRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

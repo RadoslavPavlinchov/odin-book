@@ -1,0 +1,14 @@
+form(action='/new', method='POST')
+  h1 This is the Form
+  p
+    | Author: 
+    input(type='text', name='author', value='')
+    |          Message: 
+    input(type='text', name='message', value='')
+  input(type='submit', value='Submit')
+
+h1= title
+p Welcome to #{title}
+ul 
+  each m in messages
+    li= m.message
