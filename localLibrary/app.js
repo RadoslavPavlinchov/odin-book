@@ -1,20 +1,23 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var newRouter = require('./routes/new');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const newRouter = require('./routes/new');
 
-var app = express();
+const app = express();
+
+const DB_USER = process.env.DB_USER || "";
+const DB_PASSWORD = process.env.DB_USER || "";
 
 //Set up mongoose connection
-var mongoose = require('mongoose');
-var mongoDB = 'mongodb+srv://test:test@cluster0-yq9z2.azure.mongodb.net/local_library?retryWrites=true&w=majority';
+const mongoose = require('mongoose');
+const mongoDB = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@cluster0-yq9z2.azure.mongodb.net/local_library?retryWrites=true&w=majority`;
 mongoose.connect(mongoDB, { useUnifiedTopology: true, useNewUrlParser: true });
-var db = mongoose.connection;
+const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // view engine setup
